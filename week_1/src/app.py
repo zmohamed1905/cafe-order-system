@@ -2,6 +2,9 @@ orders = []
 
 orders_status = []
 
+products_list = []
+
+couriers_list = []
 
 menu = ['Americano','Hot Chocolate','Green Tea','Coke','Fanta','Water']
 
@@ -13,7 +16,7 @@ main_menu = {
                 '3':'Show Couriers Menu Options',
 }
 
-options_menu = {
+product_menu = {
                     '0':'Return to Main Menu',
                     '1':'Print Products List',
                     '2':'Create New Product',
@@ -23,7 +26,7 @@ options_menu = {
 }
 
 
-products_options ={
+order_menu ={
                     '0':'Return to Main Menu',
                     '1':'Print Orders List',
                     '2':'Create New Order',
@@ -47,22 +50,11 @@ couriers_options ={
 def greeting() -> str:
     print("\nWelcome to Zak's Cafe!\n")
     
-def show_main_menu():
-    for key,value in main_menu.items():
-        print(key,value)   
-
-def show_options_menu():
-    for key,value in options_menu.items():
+def show_menu(menu):
+    for key,value in menu.items():
         print(key,value)
         
-        
-def show_orders_options():
-    for key,value in products_options.items():
-        print(key,value)
-
-def show_menu():
-    for item in menu:
-        print(item)
+    
         
 def show_couriers_menu():
     for key,value in couriers_options.items():
@@ -120,7 +112,6 @@ def update_existing_order_status():
     new_status = input("What status would you like to set this to?\n")
     orders[user_index]['order_status'] = new_status
     
-    
 
 def delete_existing_order():
     user_index = int(input("What order number would you like to delete?\n"))
@@ -128,14 +119,11 @@ def delete_existing_order():
     
     
 def get_couriers_list():
-    couriers_list = []
     with open('couriers.txt', 'r') as file:
         data = file.readlines()
         for line in data:
             couriers_list.append(line.strip())
             
-    print(couriers_list)
-    
     
 def create_new_courier():
     new_courier = input("What courier would you like to add?\n")
@@ -144,7 +132,6 @@ def create_new_courier():
         
         
 def get_products_list():
-    products_list = []
     with open('products.txt', 'r') as file:
         data = file.readlines()
         for line in data:
@@ -155,7 +142,7 @@ def get_products_list():
     
 def welcome():
     greeting()
-    show_main_menu()
+    show_menu(main_menu)
     
 
 while True:
@@ -165,14 +152,13 @@ while True:
         exit()
         
     elif user_choice == '1':
-        show_options_menu()
+        show_menu(product_menu)
         user_option = input("\nWhat option would you like?\n")
         
         if user_option == '0':
-            show_main_menu()
+            show_menu(main_menu)
         
         elif user_option == '1':
-            # show_menu()
             get_products_list()
             
         elif user_option == '2':
@@ -191,10 +177,10 @@ while True:
             
     
     elif user_choice == '2':
-        show_orders_options()
+        show_menu()
         new_user_choice = input("\nWhat option would you like next?\n")
         if new_user_choice == '0':
-            show_main_menu()
+            show_menu(main_menu)
             
         elif new_user_choice == '1':
             print(orders)
@@ -222,14 +208,16 @@ while True:
         new_user_choice = input("\nWhat option number would you like?\n")
         
         if new_user_choice == '0':
-            show_main_menu()
+            show_menu(main_menu)
             
         elif new_user_choice == '1':
-            get_couriers_list()
+            if not couriers_list:
+                get_couriers_list()
+            print(couriers_list)
             
         elif new_user_choice == '2':
             create_new_courier()
-            get_couriers_list()
+            print(couriers_list)
             
         elif new_user_choice == '3':
             pass

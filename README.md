@@ -12,7 +12,7 @@ This project uses Python to create a Cafe System that uses CRUD functionality to
 
 #### Clone this repo
 ``` 
-git clone git@github.com:generation-delon13/zak-mini-project.git
+https://github.com/zmohamed1905/cafe-order-system.git
 ```
 
 ### How to Run:
